@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You are special ❤️</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'cursive': ['Great Vibes', 'cursive'],
+              'sans': ['Poppins', 'sans-serif'],
+            },
+            animation: {
+              'slow-spin': 'spin 10s linear infinite',
+              'fade-in': 'fadeIn 1s ease-in-out',
+              'fade-in-up': 'fadeInUp 1s ease-in-out',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: 0 },
+                '100%': { opacity: 1 },
+              },
+              fadeInUp: {
+                '0%': { opacity: 0, transform: 'translateY(20px)' },
+                '100%': { opacity: 1, transform: 'translateY(0)' },
+              },
+            }
+          },
+        },
+      };
+    </script>
+    
+    <!-- Custom CSS -->
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #000;
+        color: white;
+      }
+    </style>
+
+    <!-- React and ReactDOM from CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    
+    <!-- Babel for JSX transpilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+      // Enums and Types
+      const Page = {
+        Welcome: 'Welcome',
+        Measuring: 'Measuring',
+        JustForYou: 'JustForYou',
+        Note: 'Note',
+        Final: 'Final',
+      };
+
+      // Icon Components
+      const HeartIcon = ({ className }) => (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className={className}
+        >
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+      );
+
+      const WarningIcon = ({ className }) => (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" />
+        </svg>
+      );
+
+      const ArrowRightIcon = ({ className }) => (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+          className={className}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+          />
+        </svg>
+      );
+
+      // WelcomePage Component
+      const WelcomePage = ({ onNext }) => {
+        const [showContent, setShowContent] = React.useState(false);
+
+        React.useEffect(() => {
+          const timer = setTimeout(() => {
+            setShowContent(true);
+          }, 1500); // Wait 1.5s before showing the text and button
+          return () => clearTimeout(timer);
+        }, []);
+
+        return (
+          <div className="flex flex-col items-center justify-center space-y-8">
+            <div className="relative w-40 h-40 animate-fade-in">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-500 to-purple-800 animate-pulse"></div>
+              <div className="absolute inset-1 rounded-full bg-black flex items-center justify-center">
+                  <img src="Waving.gif" 
+                      alt="Waving kitten" 
+                      className="w-40 h-43 rounded-full object-cover"
+                  />
+              </div>
+            </div>
+            {showContent && (
+              <div className="flex flex-col items-center justify-center space-y-8 animate-fade-in-up">
+                <h1 className="text-6xl font-cursive text-pink-300" style={{ textShadow: '0 0 10px #f472b6' }}>
+                  Hey Beautiful
+                </h1>
+                <p className="text-lg text-gray-300">Do you even know how cute you are?</p>
+                <button
+                  onClick={onNext}
+                  className="flex items-center justify-center space-x-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-fuchsia-600 rounded-full text-lg font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_20px_theme(colors.pink.500)]"
+                >
+                  <span>Open My Heart</span>
+                  <HeartIcon className="w-6 h-6" />
+                </button>
+              </div>
+            )}
+          </div>
+        );
+      };
+
+      // MeasuringPage Component
+      const MeasuringPage = ({ onNext }) => {
+        const [progress, setProgress] = React.useState(0);
+
+        React.useEffect(() => {
+          const interval = setInterval(() => {
+            setProgress(prev => {
+              if (prev >= 120) {
+                clearInterval(interval);
+                return 120;
+              }
+              return prev + 1;
+            });
+          }, 50);
+
+          return () => clearInterval(interval);
+        }, []);
+
+        React.useEffect(() => {
+          if (progress === 120) {
+            setTimeout(() => {
+              onNext();
+            }, 2000);
+          }
+        }, [progress, onNext]);
+
+        return (
+          <div className="w-full flex flex-col items-center justify-center space-y-6 bg-black bg-opacity-40 backdrop-blur-sm border border-pink-500/30 rounded-2xl p-8 shadow-2xl shadow-pink-900/50 animate-fade-in">
+            <h2 className="text-2xl font-semibold text-gray-200">Measuring your cuteness...</h2>
+            <div className="w-full bg-gray-700/50 rounded-full h-8 overflow-hidden border-2 border-pink-800">
+              <div
+                className="bg-gradient-to-r from-pink-500 to-fuchsia-500 h-full rounded-full transition-all duration-150 ease-linear flex items-center justify-end pr-2"
+                style={{ width: `${(progress / 120) * 100}%` }}
+              >
+                <span className="text-white font-bold text-sm">{progress}%</span>
+              </div>
+            </div>
+            <div className="h-8">
+              {progress < 120 ? (
+                <p className="text-pink-300 animate-pulse">Calculating cuteness...</p>
+              ) : (
+                <div className="flex items-center space-x-2 text-yellow-400 font-bold animate-fade-in-up">
+                  <WarningIcon className="w-6 h-6" />
+                  <span>WARNING: TOO CUTE TO HANDLE</span>
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      };
+
+      // JustForYouPage Component
+      const JustForYouPage = ({ onNext }) => {
+        const messages = [
+          'You matter more than u know',
+          'You make my heart slow down',
+          'You feel like home to me',
+          'You make my heart choose you, again and again',
+          'You feel like comfort',
+          'You look adorable',
+        ];
+        const [revealedIndex, setRevealedIndex] = React.useState(-1);
+
+        const handleReveal = (index) => {
+          if (index === revealedIndex + 1) {
+            setRevealedIndex(index);
+          }
+        };
+
+        const allRevealed = revealedIndex === messages.length - 1;
+
+        return (
+          <div className="w-full flex flex-col items-center space-y-6 animate-fade-in-up">
+            <div className="relative w-28 h-28 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full bg-pink-500 opacity-30 animate-pulse"></div>
+              <HeartIcon className="w-16 h-16 text-pink-400" />
+            </div>
+            <h1 className="text-5xl font-cursive text-pink-300">Just for you</h1>
+            <p className="text-gray-400">Tap the bars to reveal</p>
+            <div className="w-full space-y-3 pt-4">
+              {messages.map((message, index) => {
+                const isRevealed = index <= revealedIndex;
+                const isNext = index === revealedIndex + 1;
+                return (
+                  <button
+                    key={index}
+                    onClick={() => handleReveal(index)}
+                    disabled={!isNext && !isRevealed}
+                    className={`relative w-full h-14 bg-black bg-opacity-30 border border-purple-500/50 rounded-xl overflow-hidden flex items-center px-4 text-left transition-all duration-300 ${isNext ? 'cursor-pointer hover:border-pink-500' : 'cursor-default'}`}
+                  >
+                    <div
+                      className="absolute top-0 left-0 h-full bg-gradient-to-r from-pink-500 to-fuchsia-600 transition-all duration-700 ease-out"
+                      style={{ width: isRevealed ? '100%' : '0%' }}
+                    />
+                    <span
+                      className="relative text-white transition-opacity duration-500"
+                      style={{
+                        opacity: isRevealed ? 1 : 0,
+                        transitionDelay: isRevealed ? '300ms' : '0ms',
+                      }}
+                    >
+                      {message}
+                    </span>
+                    {!isRevealed && (
+                       <div className="absolute inset-0 flex items-center justify-center">
+                          <HeartIcon
+                          className={`w-6 h-6 text-pink-400/70 transition-opacity duration-300 ${isNext ? 'animate-pulse' : ''}`}
+                          />
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+            {allRevealed && (
+              <button
+                onClick={onNext}
+                className="w-full mt-4 flex items-center justify-center space-x-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-fuchsia-600 rounded-full text-lg font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_20px_theme(colors.pink.500)] animate-fade-in"
+              >
+                <span>See more</span>
+                <ArrowRightIcon className="w-6 h-6" />
+              </button>
+            )}
+          </div>
+        );
+      };
+
+      // NotePage Component
+      const NotePage = ({ onNext }) => {
+        const noteText = "I just wanted to tell you something... you really are special in a way that's hard to explain. There's a softness in the way you talk, a sweetness in the way you smile, and something genuine about you that just feels good to be around. You don't try to be anything extra, you're just you, and that's what makes you so lovely.";
+        const [isOpen, setIsOpen] = React.useState(false);
+        const [displayedText, setDisplayedText] = React.useState('');
+
+        React.useEffect(() => {
+          if (isOpen) {
+            let i = 0;
+            const interval = setInterval(() => {
+              setDisplayedText(noteText.substring(0, i));
+              i++;
+              if (i > noteText.length) {
+                clearInterval(interval);
+              }
+            }, 40);
+            return () => clearInterval(interval);
+          }
+        }, [isOpen]);
+
+        return (
+          <div className="w-full flex flex-col items-center justify-center space-y-8 animate-fade-in">
+            <h1 className="text-5xl font-cursive text-pink-200" style={{ textShadow: '0 0 10px #f472b6' }}>
+              A little note for you
+            </h1>
+            {!isOpen ? (
+              <div className="relative w-full h-48 cursor-pointer" onClick={() => setIsOpen(true)}>
+                <div className="absolute inset-0 bg-pink-200 rounded-xl shadow-lg"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-pink-300 to-pink-400 rounded-xl flex items-center justify-between p-2">
+                  <HeartIcon className="w-6 h-6 text-pink-600" />
+                  <HeartIcon className="w-6 h-6 text-pink-600" />
+                </div>
+                <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-pink-400 to-pink-500 rounded-t-xl" style={{ clipPath: 'polygon(0 0, 100% 0, 50% 100%)' }}></div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <div className="bg-pink-600 p-2 rounded-full shadow-md">
+                    <HeartIcon className="w-10 h-10 text-white" />
+                  </div>
+                  <p className="mt-2 font-semibold text-pink-800">Tap to open</p>
+                </div>
+              </div>
+            ) : (
+              <div className="w-full bg-pink-100 rounded-xl p-6 shadow-2xl shadow-pink-900/50 text-gray-800 animate-fade-in-up text-left flex flex-col space-y-4">
+                <div className="flex justify-center">
+                  <HeartIcon className="w-8 h-8 text-pink-500" />
+                </div>
+                <p className="text-lg leading-relaxed h-56">{displayedText}</p>
+                {displayedText.length === noteText.length && (
+                  <button
+                    onClick={onNext}
+                    className="w-full mt-4 flex items-center self-end justify-center space-x-2 px-8 py-3 bg-gradient-to-r from-pink-500 to-fuchsia-600 rounded-full text-white text-md font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fade-in"
+                  >
+                    <span>One more thing</span>
+                    <ArrowRightIcon className="w-5 h-5" />
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      };
+
+      // FinalPage Component
+      const FinalPage = ({ onNext }) => {
+        return (
+          <div className="flex flex-col items-center justify-center space-y-8 animate-fade-in-up">
+            <div className="relative w-48 h-48">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-500 to-purple-800 animate-slow-spin"></div>
+              <div className="absolute inset-2 rounded-full bg-black flex items-center justify-center">
+                  <img 
+                      src="bear cute.gif" 
+                      alt="Rotating cat" 
+                      className="w-40 h-40 rounded-full object-contain"
+                  />
+              </div>
+            </div>
+            <h1 className="text-5xl font-cursive text-pink-300 px-4" style={{ textShadow: '0 0 15px #f472b6' }}>
+              You'll always be special to me
+            </h1>
+          </div>
+        );
+      };
+
+      // Main App Component
+      const App = () => {
+        const [currentPage, setCurrentPage] = React.useState(Page.Welcome);
+
+        const renderPage = () => {
+          switch (currentPage) {
+            case Page.Welcome:
+              return <WelcomePage onNext={() => setCurrentPage(Page.Measuring)} />;
+            case Page.Measuring:
+              return <MeasuringPage onNext={() => setCurrentPage(Page.JustForYou)} />;
+            case Page.JustForYou:
+              return <JustForYouPage onNext={() => setCurrentPage(Page.Note)} />;
+            case Page.Note:
+              return <NotePage onNext={() => setCurrentPage(Page.Final)} />;
+            case Page.Final:
+                return <FinalPage onNext={() => {}} />; // Final page
+            default:
+              return <WelcomePage onNext={() => setCurrentPage(Page.Measuring)} />;
+          }
+        };
+
+        return (
+          <div className="relative font-sans text-white bg-black min-h-screen w-full flex flex-col items-center justify-center p-4 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(#2d0a2b_1px,transparent_1px)] [background-size:16px_16px] animate-fade-in"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-[radial-gradient(ellipse_at_bottom,_#7e22ce_0%,#1e1b4b_50%,#0000_70%)] opacity-50"></div>
+            <main className="relative z-10 w-full max-w-sm text-center flex items-center justify-center min-h-screen">
+                {renderPage()}
+            </main>
+          </div>
+        );
+      };
+
+      // Render the App
+      const rootElement = document.getElementById('root');
+      if (rootElement) {
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        );
+      }
+    </script>
+  </body>
+</html>
